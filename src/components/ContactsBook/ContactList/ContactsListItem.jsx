@@ -1,20 +1,21 @@
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
 import { Button, ItenInfoText } from './ContactsList.styled';
-import { delItem } from 'redux/actions';
+import { useDeleteContactMutation } from '../../../redux/contactsSlice';
+import { Loader } from '../Loader/Loader';
 
 export const ContactsListItem = ({ contact }) => {
-  const dispatch = useDispatch();
-
-  const deleteContact = () => {
-    dispatch(delItem(contact.id));
-  };
+  const [deleteContact, { isLoading }] = useDeleteContactMutation();
 
   return (
     <>
       <ItenInfoText>{contact.name}:</ItenInfoText>
       <ItenInfoText>{contact.number}</ItenInfoText>
-      <Button type="button" onClick={deleteContact}>
+      <Button
+        type="button"
+        disabled={isLoading}
+        onClick={() => deleteContact(contact.id)}
+      >
+        {isLoading && <Loader size={10} />}
         Delete
       </Button>
     </>

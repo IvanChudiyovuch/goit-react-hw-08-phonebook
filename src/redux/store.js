@@ -1,35 +1,60 @@
 import { configureStore } from '@reduxjs/toolkit';
-import {
-  persistStore,
-  persistReducer,
-  FLUSH,
-  REHYDRATE,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER,
-} from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
-import contactReducer from './reducer';
-
-const persistConfig = {
-  key: 'root',
-  storage,
-};
-
-const persistedContactReducer = persistReducer(persistConfig, contactReducer);
+import { setupListeners } from '@reduxjs/toolkit/query';
+import { contactApi } from './contactsSlice';
 
 export const store = configureStore({
   reducer: {
-    contacts: persistedContactReducer,
+    [contactApi.reducerPath]: contactApi.reducer,
   },
-  middleware(getDefaultMiddleware) {
-    return getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
-    });
-  },
+  middleware: getDefaultMiddleware => [
+    ...getDefaultMiddleware(),
+    contactApi.middleware,
+  ],
 });
 
-export const persistor = persistStore(store);
+setupListeners(store.dispatch);
+
+// import { configureStore } from '@reduxjs/toolkit';
+// import { contactsReducer } from './contactsSlice';
+
+// export const store = configureStore({
+//   reducer: {
+//     contacts: contactsReducer,
+//   },
+// });
+
+// import { configureStore } from '@reduxjs/toolkit';
+// import {
+//   persistStore,
+//   persistReducer,
+//   FLUSH,
+//   REHYDRATE,
+//   PAUSE,
+//   PERSIST,
+//   PURGE,
+//   REGISTER,
+// } from 'redux-persist';
+// import storage from 'redux-persist/lib/storage';
+// import contactReducer from './reducer';
+
+// const persistConfig = {
+//   key: 'root',
+//   storage,
+// };
+
+// const persistedContactReducer = persistReducer(persistConfig, contactReducer);
+
+// export const store = configureStore({
+//   reducer: {
+//     contacts: persistedContactReducer,
+//   },
+//   middleware(getDefaultMiddleware) {
+//     return getDefaultMiddleware({
+//       serializableCheck: {
+//         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+//       },
+//     });
+//   },
+// });
+
+// export const persistor = persistStore(store);
