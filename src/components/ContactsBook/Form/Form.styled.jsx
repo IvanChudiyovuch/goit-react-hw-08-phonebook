@@ -14,11 +14,13 @@ export const Input = styled.input`
   padding: ${p => p.theme.space[1]}px;
   height: 20px;
   border: 1px solid ${p => p.theme.colors.black};
+  border-radius: 4px;
 `;
 
 export const Forma = styled.form`
   margin: ${p => p.theme.space[4]}px 0;
   padding: ${p => p.theme.space[3]}px;
   border: 1px solid ${p => p.theme.colors.black};
+  border-radius: 4px;
   width: 300px;
 `;

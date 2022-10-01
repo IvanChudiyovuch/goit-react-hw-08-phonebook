@@ -20,6 +20,10 @@ export const Button = styled.button`
   cursor: pointer;
   background-color: ${p => p.theme.colors.accent};
   border: 1px solid rgba(0, 0, 0, 0.1);
+  &:hover,
+  &:focus {
+    background-color: ${p => p.theme.colors.accentFocus};
+  }
 `;
 
 export const ItenInfoText = styled.p`
