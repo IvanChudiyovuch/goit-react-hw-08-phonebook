@@ -31,21 +31,24 @@ export const Form = () => {
     }
   };
 
-  const handleSubmit = event => {
+  const handleSubmit = async event => {
     event.preventDefault();
+    try {
+      let newContact = {
+        name,
+        number,
+      };
 
-    let newContact = {
-      name,
-      number,
-    };
+      contacts.find(
+        ({ name }) => name.toLowerCase() === newContact.name.toLowerCase()
+      )
+        ? alert(`${newContact.name} is already exist in your contacts!`)
+        : await createContact(newContact);
 
-    contacts.find(
-      ({ name }) => name.toLowerCase() === newContact.name.toLowerCase()
-    )
-      ? alert(`${newContact.name} is already exist in your contacts!`)
-      : createContact(newContact);
-
-    reset();
+      reset();
+    } catch (error) {
+      console.log('ERROR');
+    }
   };
 
   const reset = () => {
