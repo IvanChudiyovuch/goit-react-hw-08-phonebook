@@ -3,7 +3,7 @@ import { Container, Title } from './Home.styled';
 export default function Home() {
   return (
     <Container>
-      <Title>Welcome to PhoneBook</Title>
+      <Title>Welcome to the PhoneBook</Title>
     </Container>
   );
 }

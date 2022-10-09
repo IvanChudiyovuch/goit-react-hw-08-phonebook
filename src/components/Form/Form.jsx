@@ -1,18 +1,17 @@
 import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Lable, Input, Forma } from './Form.styled';
 import { Button } from '../ContactList/ContactsList.styled';
 import { Loader } from '../Loader/Loader';
-import {
-  useCreateContactMutation,
-  useGetContactsQuery,
-} from '../../../redux/contactsSlice';
+import { getContacts, getIsLoading } from 'redux/contacts/selectors';
+import { addContacts } from 'redux/contacts/operations';
 
 export const Form = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-
-  const [createContact, { isLoading }] = useCreateContactMutation();
-  const { data: contacts } = useGetContactsQuery();
+  const itemContact = useSelector(getContacts);
+  const isLoading = useSelector(getIsLoading);
+  const dispatch = useDispatch();
 
   const handleValueInputChange = event => {
     const { name, value } = event.target;
@@ -39,11 +38,11 @@ export const Form = () => {
         number,
       };
 
-      contacts.find(
+      itemContact.find(
         ({ name }) => name.toLowerCase() === newContact.name.toLowerCase()
       )
         ? alert(`${newContact.name} is already exist in your contacts!`)
-        : await createContact(newContact);
+        : await dispatch(addContacts(newContact));
 
       reset();
     } catch (error) {

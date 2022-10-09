@@ -1,9 +1,9 @@
 import { useDispatch } from 'react-redux';
-import { register } from '../../../redux/operations';
+import { register } from '../../redux/auth/operations';
 import { Form, Label, Button } from './RegisterForm.styled';
 
 export const RegisterForm = () => {
-  const dispatch = useDispatch;
+  const dispatch = useDispatch();
 
   const handleSubmit = e => {
     e.preventDefault();

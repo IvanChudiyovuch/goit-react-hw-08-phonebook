@@ -1,11 +1,18 @@
 import PropTypes from 'prop-types';
 import { FcBusinessman, FcCellPhone } from 'react-icons/fc';
+import { useDispatch, useSelector } from 'react-redux';
 import { Button, ItenInfoText } from './ContactsList.styled';
-import { useDeleteContactMutation } from '../../../redux/contactsSlice';
 import { Loader } from '../Loader/Loader';
+import { deleteContacts } from 'redux/contacts/operations';
+import { getIsLoading } from 'redux/contacts/selectors';
 
 export const ContactsListItem = ({ contact }) => {
-  const [deleteContact, { isLoading }] = useDeleteContactMutation();
+  const isLoading = useSelector(getIsLoading);
+  const dispatch = useDispatch();
+
+  const deleteContact = () => {
+    dispatch(deleteContacts(contact.id));
+  };
 
   return (
     <>
