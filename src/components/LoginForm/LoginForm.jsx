@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { logIn } from 'redux/auth/operations';
-import { Form, Label, Button } from './LoginForm.styled';
+import { Form, Label, Button, Container } from './LoginForm.styled';
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
@@ -18,16 +18,18 @@ export const LoginForm = () => {
   };
 
   return (
-    <Form onSubmit={handleSubmit} autoComplete="off">
-      <Label>
-        Email
-        <input type="email" name="email" />
-      </Label>
-      <Label>
-        Password
-        <input type="password" name="password" />
-      </Label>
-      <Button type="submit">Log In</Button>
-    </Form>
+    <Container>
+      <Form onSubmit={handleSubmit} autoComplete="off">
+        <Label>
+          Email
+          <input type="email" name="email" />
+        </Label>
+        <Label>
+          Password
+          <input type="password" name="password" />
+        </Label>
+        <Button type="submit">Log In</Button>
+      </Form>
+    </Container>
   );
 };

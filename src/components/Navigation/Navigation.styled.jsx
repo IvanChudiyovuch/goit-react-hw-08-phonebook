@@ -10,7 +10,7 @@ export const Link = styled(NavLink)`
   &.active {
     color: ${p => p.theme.colors.accent};
   }
-  &:hover:not(.active),
+  :hover:not(.active),
   &:focus-visible:not(.active) {
     color: ${p => p.theme.colors.black};
   }
